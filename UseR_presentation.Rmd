@@ -15,6 +15,8 @@ output:
 
 We are going to be looking at a dataset on wages and other data for a group of 3000 workers and learn how to use ggplot2 to answer questions about our data. 
 
+What is ggplot2? From their [site](http://ggplot2.org/) ggplot2 is a plotting system for R, based on the grammar of graphics by Leland Wilkinson. Written by Hadley Wickham while he was a grad student at Iowa State
+
 
 Loading the packages we need:
 ```{r, message = FALSE}
@@ -69,6 +71,8 @@ A few observations:
 - Use the geoms you wants
 
 
+### What is the relationship between age and wage?
+
 Just running `ggplot` gives us a blank canvas for our great visualizations:
 ```{r}
 ggplot()
@@ -85,7 +89,7 @@ Finally we can use geoms to tell ggplot what type of plot we want.
 
 ```{r}
 ggplot(data = Wage, aes(x = age, y = wage)) + 
-    geom_point()
+    geom_point() + ggtitle("Wage versus Age")
 ```
 
 We have our first ggplot plot, pretty cool! The cool thing is that every plot we will ever make will have roughly the same structure:
@@ -176,9 +180,10 @@ ggplot(data = Wage, mapping = aes(x = age, y = wage, color = education)) +
 Aes can be tricky but you can always overwrite the overall aes with putting an aes in your geom:
 
 ```{r}
-ggplot(data = Wage, mapping = aes(x = age, y = wage)) +
-    geom_point() +
-    geom_smooth(aes(color = education)) 
+ggplot(data = Wage, mapping = aes(x = age, y = wage, color = education)) +
+    geom_point(color = "black", aes(shape = maritl)) +
+    #geom_smooth() +
+    facet_grid(maritl ~ education)
 ```
 
 
